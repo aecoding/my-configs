@@ -10,7 +10,7 @@ function save() {
   cd ~/.my-configs;
   git add .;
   git commit -m 'New Changes!';
-  git push -u origin main;
+  git push -u origin master;
   cd $dir;
 }
 
