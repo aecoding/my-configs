@@ -1,0 +1,21 @@
+--- Makefile
++++ Makefile
+@@ -4,7 +4,7 @@
+ 20
+ include config.mk
+ 20
+-SRC =3D st.c x.c
++SRC =3D st.c x.c hb.c
+ OBJ =3D $(SRC:.c=3D.o)
+ 20
+ all: options st
+@@ -22,7 +22,8 @@ config.h:
+ 	$(CC) $(STCFLAGS) -c $&lt;
+ 20
+ st.o: config.h st.h win.h
+-x.o: arg.h config.h st.h win.h
++x.o: arg.h config.h st.h win.h hb.h
++hb.o: st.h
+ 20
+ $(OBJ): config.h config.mk
+ 20

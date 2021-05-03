@@ -1,0 +1,22 @@
+[master 5d0bde3] Tasks Updated
+ 4 files changed, 13 insertions(+), 3 deletions(-)
+To https://github.com/aedigo/My-Tasks.git
+   1c12a2a..5d0bde3  master -> master
+Branch 'master' set up to track remote branch 'master' from 'tasks'.
+[master 00ddcd7] Tasks Updated
+ 4 files changed, 45 insertions(+), 5 deletions(-)
+[master bccf40c] Tasks Updated
+ 3 files changed, 6 insertions(+), 1 deletion(-)
+To https://github.com/aedigo/My-Tasks.git
+   bd9acf3..00ddcd7  master -> master
+Branch 'master' set up to track remote branch 'master' from 'tasks'.
+To https://github.com/aedigo/My-Tasks.git
+   00ddcd7..bccf40c  master -> master
+Branch 'master' set up to track remote branch 'master' from 'tasks'.
+erresc: unknown csi ESC[22;0;0t
+erresc: unknown str ESC]11
+erresc: unknown csi ESC[23;0;0t
+X connection to :0 broken (explicit kill or server shutdown).
+erresc: unknown csi ESC[22;0;0t
+erresc: unknown str ESC]11
+erresc: unknown csi ESC[23;0;0t

@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =2
+let g:netrw_dirhist_2='/home/aedigo'
+let g:netrw_dirhist_1='/home/aedigo/.config/redshift.conf'
+let g:netrw_dirhist_0='/home/aedigo/Documents/PersonalProjects/FrontEndMaster/four-card-feature-section-master'
+let g:netrw_dirhist_9='/home/aedigo/Documents/CoursesProjects/Origamid/wild-beast'
+let g:netrw_dirhist_8='/home/aedigo/Documents/PersonalProjects/electron/test/my-electron-app'
+let g:netrw_dirhist_7='/home/aedigo/Documents/PersonalProjects/FrontEndMaster/four-card-feature-section-master'
+let g:netrw_dirhist_6='/home/aedigo/Documents/CoursesProjects/Origamid/wild-beast'
+let g:netrw_dirhist_5='/home/aedigo/Documents/PersonalProjects/FrontEndMaster/four-card-feature-section-master'
+let g:netrw_dirhist_4='/home/aedigo/Documents/CoursesProjects/Origamid/wild-beast'
+let g:netrw_dirhist_3='/home/aedigo/Documents/CoursesProjects/Origamid'

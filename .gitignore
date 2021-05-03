@@ -1,0 +1,6 @@
+.bin/searx/
+.bin/__pycache__/
+.config/qtile/node_modules
+.config/qtile/package.json
+.config/nvim/plugged
+

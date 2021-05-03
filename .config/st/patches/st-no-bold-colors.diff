@@ -1,0 +1,186 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://st.suckless.org/patches/solarized/st-no_bold_colors-0.5.diff
+Subject: 
+Date: Sun, 20 Dec 2020 19:15:19 -0000
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----"
+
+
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/html
+Content-ID: <frame-D13191D21332DF1B69AEB5921E250557@mhtml.blink>
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://st.suckless.org/patches/solarized/st-no_bold_colors-0.5.diff
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
+=3Dwindows-1252"><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css=
+-30041b54-bf21-41b5-a8a6-1e86271fe26e@mhtml.blink" /><link rel=3D"styleshee=
+t" type=3D"text/css" href=3D"cid:css-67873303-4d07-4a2d-87e0-f914fe0889be@m=
+html.blink" /><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-d8=
+16981e-d863-4fac-a4f3-d1136fb83cda@mhtml.blink" /><link rel=3D"stylesheet" =
+type=3D"text/css" href=3D"cid:css-5e1d87be-ed17-4927-b3db-b2ef5d1df964@mhtm=
+l.blink" /><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-d5ff0=
+2b7-f750-4645-97a2-733022578f39@mhtml.blink" /><link rel=3D"stylesheet" typ=
+e=3D"text/css" href=3D"cid:css-741513f7-045d-4165-9ff0-afff733dec02@mhtml.b=
+link" /><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-b039fe91=
+-54cf-4739-adef-ea21237bc1de@mhtml.blink" /><link rel=3D"stylesheet" type=
+=3D"text/css" href=3D"cid:css-c9a39496-3dd3-4f98-b3d4-237751e41cb5@mhtml.bl=
+ink" /><link rel=3D"stylesheet" type=3D"text/css" href=3D"cid:css-a66df8e1-=
+de3f-415b-b691-ebc977ef6882@mhtml.blink" /><meta name=3D"darkreader" conten=
+t=3D"94020eca34b02542ab36386a40d455e7"></head><body><pre style=3D"word-wrap=
+: break-word; white-space: pre-wrap;">diff --git a/st.c b/st.c
+index 392f12d..f893147 100644
+--- a/st.c
++++ b/st.c
+@@ -3152,7 +3152,7 @@ xdraws(char *s, Glyph base, int x, int y, int charlen=
+, int bytelen) {
+ 	if(base.mode &amp; ATTR_BOLD) {
+ 		if(BETWEEN(base.fg, 0, 7)) {
+ 			/* basic system colors */
+-			fg =3D &amp;dc.col[base.fg + 8];
++			fg =3D &amp;dc.col[base.fg];
+ 		} else if(BETWEEN(base.fg, 16, 195)) {
+ 			/* 256 colors */
+ 			fg =3D &amp;dc.col[base.fg + 36];
+</pre></body></html>
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-30041b54-bf21-41b5-a8a6-1e86271fe26e@mhtml.blink
+
+@charset "windows-1252";
+=0A
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-67873303-4d07-4a2d-87e0-f914fe0889be@mhtml.blink
+
+@charset "windows-1252";
+=0A
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-d816981e-d863-4fac-a4f3-d1136fb83cda@mhtml.blink
+
+@charset "windows-1252";
+=0A
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-5e1d87be-ed17-4927-b3db-b2ef5d1df964@mhtml.blink
+
+@charset "windows-1252";
+
+[data-darkreader-inline-bgcolor] { background-color: var(--darkreader-inlin=
+e-bgcolor)  !important; }
+
+[data-darkreader-inline-bgimage] { background-image: var(--darkreader-inlin=
+e-bgimage)  !important; }
+
+[data-darkreader-inline-border] { border-color: var(--darkreader-inline-bor=
+der)  !important; }
+
+[data-darkreader-inline-border-bottom] { border-bottom-color: var(--darkrea=
+der-inline-border-bottom)  !important; }
+
+[data-darkreader-inline-border-left] { border-left-color: var(--darkreader-=
+inline-border-left)  !important; }
+
+[data-darkreader-inline-border-right] { border-right-color: var(--darkreade=
+r-inline-border-right)  !important; }
+
+[data-darkreader-inline-border-top] { border-top-color: var(--darkreader-in=
+line-border-top)  !important; }
+
+[data-darkreader-inline-boxshadow] { box-shadow: var(--darkreader-inline-bo=
+xshadow)  !important; }
+
+[data-darkreader-inline-color] { color: var(--darkreader-inline-color)  !im=
+portant; }
+
+[data-darkreader-inline-fill] { fill: var(--darkreader-inline-fill)  !impor=
+tant; }
+
+[data-darkreader-inline-stroke] { stroke: var(--darkreader-inline-stroke)  =
+!important; }
+
+[data-darkreader-inline-outline] { outline-color: var(--darkreader-inline-o=
+utline)  !important; }
+
+[data-darkreader-inline-stopcolor] { stop-color: var(--darkreader-inline-st=
+opcolor)  !important; }
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-d5ff02b7-f750-4645-97a2-733022578f39@mhtml.blink
+
+@charset "windows-1252";
+
+:root { --darkreader-neutral-background: #131516; --darkreader-neutral-text=
+: #d8d4cf; --darkreader-selection-background: #004daa; --darkreader-selecti=
+on-text: #e8e6e3; }
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-741513f7-045d-4165-9ff0-afff733dec02@mhtml.blink
+
+@charset "windows-1252";
+
+html { background-color: rgb(24, 26, 27) !important; }
+
+html, body, input, textarea, select, button { background-color: rgb(24, 26,=
+ 27); }
+
+html, body, input, textarea, select, button { border-color: rgb(115, 107, 9=
+4); color: rgb(232, 230, 227); }
+
+a { color: rgb(51, 145, 255); }
+
+table { border-color: rgb(84, 91, 94); }
+
+::placeholder { color: rgb(178, 171, 161); }
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill =
+{ background-color: rgb(85, 91, 0) !important; color: rgb(232, 230, 227) !i=
+mportant; }
+
+::-webkit-scrollbar { background-color: rgb(32, 35, 36); color: rgb(171, 16=
+4, 153); }
+
+::-webkit-scrollbar-thumb { background-color: rgb(69, 74, 77); }
+
+::-webkit-scrollbar-thumb:hover { background-color: rgb(87, 94, 98); }
+
+::-webkit-scrollbar-thumb:active { background-color: rgb(72, 78, 81); }
+
+::-webkit-scrollbar-corner { background-color: rgb(24, 26, 27); }
+
+* { }
+
+::selection { background-color: rgb(0, 77, 170) !important; color: rgb(232,=
+ 230, 227) !important; }
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-b039fe91-54cf-4739-adef-ea21237bc1de@mhtml.blink
+
+@charset "windows-1252";
+=0A
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-c9a39496-3dd3-4f98-b3d4-237751e41cb5@mhtml.blink
+
+@charset "windows-1252";
+=0A
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h----
+Content-Type: text/css
+Content-Transfer-Encoding: quoted-printable
+Content-Location: cid:css-a66df8e1-de3f-415b-b691-ebc977ef6882@mhtml.blink
+
+@charset "utf-8";
+
+html > ::-webkit-scrollbar { width: 0px; height: 0px; }
+------MultipartBoundary--W7N0XhWHiNgtjGY3NUoXYJ4itk1Z1h1JjCLuXOpf9h------
