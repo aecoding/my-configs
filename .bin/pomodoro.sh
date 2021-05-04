@@ -8,4 +8,3 @@ elif [[ $1 = 'cancel' ]]
 then
   cp -f ~/.bin/python/cancel.py ~/.bin/python/pomoCancel.py
 fi
-
