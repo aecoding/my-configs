@@ -3,13 +3,15 @@
 
 from importlib import reload
 from datetime import datetime
-import time
-import pomoCancel
-
-import subprocess
+from subprocess import call
+import time, pomoCancel, subprocess, simpleaudio as sa
 
 def sendmessage(message):
     subprocess.Popen(['notify-send.sh', message])
+    return
+
+def play_sound(path, time):
+    call(['aplay', '-d', str(time), path])
     return
 
 hour = datetime.now().hour
@@ -34,6 +36,7 @@ else:
     pomodoro = str(hour) + ':' + str(minute) + ':' + str(second)
 
 sendmessage('Pomodoro')
+play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
 while current_time != pomodoro and not pomoCancel.cancel():
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
@@ -42,10 +45,12 @@ while current_time != pomodoro and not pomoCancel.cancel():
 
     if playingAround == current_time:
         sendmessage('JUST DO IT!!!')
+        play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
 
     print(current_time, pomodoro)
     time.sleep(1)
     reload(pomoCancel)
 else:
     sendmessage('Done! Good Work!')
+    play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-end.wav', 3)
 
