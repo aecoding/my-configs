@@ -1,11 +1,11 @@
 #!/bin/bash
 
-killall tomato
-
-nh() {
-  nohup $1 >/dev/null 2>&1& 
-}
-
-nh tomato -t
-notify-send 'Started'
+if [[ $1 = 'start' ]]
+then
+  cp -f ~/.bin/python/start.py ~/.bin/python/pomoCancel.py
+  python ~/.bin/python/pomodoro.py
+elif [[ $1 = 'cancel' ]]
+then
+  cp -f ~/.bin/python/cancel.py ~/.bin/python/pomoCancel.py
+fi
 
