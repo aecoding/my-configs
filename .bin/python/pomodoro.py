@@ -42,16 +42,26 @@ def format_time(hour, minute, second):
     return formated_time
 
 def add_time(hour, minute, newMinute, second):
+    newSecond = second
     bothMinutes = int(minute) + int(newMinute[0])
+    newHour = hour
     if bothMinutes >= 60:
-        newHour = hour + 1
+        newHour = int(newHour) + 1
         alteratedMinute = bothMinutes - 60
         if len(str(newHour)) == 1:
             newHour = isMissingZero(newHour)
-        elif len(str(alteratedMinute)) == 1:
+        if len(str(alteratedMinute)) == 1:
             alteratedMinute = isMissingZero(alteratedMinute)
-        return [newHour, alteratedMinute, second]
-    return [hour, bothMinutes, second]
+            print(alteratedMinute)
+        if len(str(newSecond)) == 1:
+            newSecond = isMissingZero(newSecond)
+        return [newHour, alteratedMinute, newSecond]
+
+    if len(str(newSecond)) == 1:
+        newSecond = isMissingZero(newSecond)
+        return [newHour, bothMinutes, newSecond]
+
+    return [newHour, bothMinutes, newSecond]
 
 def notUnder60(newMinute):
     if minute >= 60:
@@ -71,6 +81,7 @@ while current_time != pomodoro and not pomoCancel.cancel():
         sendmessage('JUST DO IT!!!')
         play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
 
+    print(current_time, pomodoro, playingAround)
     time.sleep(1)
     reload(pomoCancel)
 else:
