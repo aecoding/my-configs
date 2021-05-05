@@ -4,7 +4,12 @@ configuration {
  font: "hack 10";
  combi-modi: "window,drun,ssh";
  icon-theme: "Papirus";
- show-icons: true;
+ hide-scrollbar: true;
+ kb-row-down: "Down,Control+n,J";
+ kb-row-up: "Up,Control+p,ISO_Left_Tab,K";
+ width: 28;
+ lines: 10;
+ threads: 4;
 
 /*      width: 50;*/
 /*      lines: 15;*/
