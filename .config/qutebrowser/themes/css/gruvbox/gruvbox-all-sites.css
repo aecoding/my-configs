@@ -1764,3 +1764,15 @@ html,body {
 .ssrcss-wmb5oz-Masthead {
   background: #282828;
 }
+
+/* Stack overflow */
+
+.top-bar {
+  background-color: #282828 !important;
+  border-top: #282828 !important;
+}
+
+/* Qtile */
+.wy-nav-content {
+  background-color: #282828 !important;
+}

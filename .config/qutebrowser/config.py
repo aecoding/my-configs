@@ -970,7 +970,7 @@ c.content.notifications.enabled = False
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-# c.content.user_stylesheets = []
+c.content.user_stylesheets = ['~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css']
 
 ## Enable WebGL.
 ## Type: Bool
