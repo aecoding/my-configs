@@ -4,9 +4,17 @@
 from importlib import reload
 from datetime import datetime
 from subprocess import call
-import time, pomoCancel, subprocess
+import time, cancelIt, subprocess, sys, os
 
-current_time = None
+wantToCancel = None
+isRunningPath = '/home/aedigo/.local/share/pomodoro/isrunning'
+
+try:
+    if sys.argv[1] == 'cancel':
+        wantToCancel = True
+except:
+    wantToCancel = False
+
 
 def sendmessage(message):
     subprocess.Popen(['notify-send.sh', message])
@@ -15,6 +23,31 @@ def sendmessage(message):
 def play_sound(path, time):
     call(['aplay', '-d', str(time), path])
     return
+
+def canceling(state):
+    f = open('/home/aedigo/.bin/python/cancelIt.py', 'w')
+    f.write('cancel=' + str(state))
+    f.close()
+
+
+if os.path.isfile(isRunningPath):
+    if wantToCancel:
+        os.remove('/home/aedigo/.local/share/pomodoro/isrunning')
+        canceling(True)
+        exit()
+    else:
+        sendmessage('Is running!')
+        exit()
+
+else:
+    if wantToCancel:
+        sendmessage('Not running!')
+        exit()
+    f = open(isRunningPath, 'w')
+    f.close()
+    sendmessage('Pomodoro started')
+            
+current_time = None
 
 def get_hour(*newMinute):
     hour = datetime.now().hour
@@ -71,9 +104,10 @@ def notUnder60(newMinute):
 pomodoro = get_hour(25)
 playingAround = get_hour(5)
 
-sendmessage('Pomodoro')
 play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
-while current_time != pomodoro and not pomoCancel.cancel():
+
+print(pomodoro, playingAround, current_time)
+while current_time != pomodoro and not cancelIt.cancel:
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
 
@@ -83,8 +117,12 @@ while current_time != pomodoro and not pomoCancel.cancel():
 
     print(current_time, pomodoro, playingAround)
     time.sleep(1)
-    reload(pomoCancel)
+    reload(cancelIt)
 else:
-    sendmessage('Done! Good Work!')
+    if cancelIt.cancel:
+        sendmessage('Pomodoro has been canceled!')
+    else:
+        sendmessage('Done! Good Work!')
     play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-end.wav', 3)
+    canceling(False)
 
