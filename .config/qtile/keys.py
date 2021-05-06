@@ -108,7 +108,7 @@ keys = [
     # Dmenu/Rofi
     EzKey(
       'M-r',
-      lazy.spawn('rofi -show')
+      lazy.spawn('dmenu_history -h 24 -s')
     ),
 
     # Scripts
@@ -135,6 +135,16 @@ keys = [
     EzKey(
       'M-C-l',
       lazy.spawn('lockIt')
+    ),
+
+    EzKey(
+      'M-S-p',
+      lazy.spawn('pomodoro start')
+    ),
+
+    EzKey(
+      'M-S-c',
+      lazy.spawn('pomodoro cancel')
     ),
 
     # Terminal Based Apps
