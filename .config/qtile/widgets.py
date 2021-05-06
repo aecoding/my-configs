@@ -18,7 +18,8 @@ def widgets():
         highlight_color=colors[1],
         highlight_method='line',
         inactive=colors[0],
-        block_highlight_text_color=colors[0]
+        block_highlight_text_color=colors[0],
+        margin_y=4,
     ),
     widget.Spacer(
       background=colors[0],

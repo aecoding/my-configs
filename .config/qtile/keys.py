@@ -108,7 +108,7 @@ keys = [
     # Dmenu/Rofi
     EzKey(
       'M-r',
-      lazy.spawn('dmenu_history -h 24 -s')
+      lazy.spawn('dmenu_history -h 20 -s')
     ),
 
     # Scripts
