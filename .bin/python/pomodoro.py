@@ -122,5 +122,6 @@ else:
     else:
         sendmessage('Done! Good Work!')
     play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-end.wav', 3)
+    os.remove('/home/aedigo/.local/share/pomodoro/isrunning')
     canceling(False)
 
