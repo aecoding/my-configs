@@ -118,6 +118,11 @@ keys = [
     ),
 
     EzKey(
+      'A-S-s',
+      lazy.spawn('scrot -p -q 100 /home/aedigo/Documents/Pictures/%Y-%m-%d-%T-screenshot.png')
+    ),
+
+    EzKey(
       'M-S-u',
       lazy.spawn('volume up')
     ),
@@ -139,7 +144,7 @@ keys = [
 
     EzKey(
       'M-S-p',
-      lazy.spawn('pomodoro start')
+      lazy.spawn('pomodoro ""')
     ),
 
     EzKey(
