@@ -9,12 +9,10 @@ import time, cancelIt, subprocess, sys, os
 wantToCancel = None
 isRunningPath = '/home/aedigo/.local/share/pomodoro/isrunning'
 
-try:
-    if sys.argv[1] == 'cancel':
-        wantToCancel = True
-except:
+if sys.argv[1] == 'cancel':
+    wantToCancel = True
+else:
     wantToCancel = False
-
 
 def sendmessage(message):
     subprocess.Popen(['notify-send.sh', message])
@@ -29,7 +27,6 @@ def canceling(state):
     f.write('cancel=' + str(state))
     f.close()
 
-
 if os.path.isfile(isRunningPath):
     if wantToCancel:
         os.remove('/home/aedigo/.local/share/pomodoro/isrunning')
@@ -42,6 +39,7 @@ if os.path.isfile(isRunningPath):
 else:
     if wantToCancel:
         sendmessage('Not running!')
+        canceling(False)
         exit()
     f = open(isRunningPath, 'w')
     f.close()
@@ -106,7 +104,7 @@ playingAround = get_hour(5)
 
 play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
 
-print(pomodoro, playingAround, current_time)
+print(cancelIt.cancel, current_time != pomodoro)
 while current_time != pomodoro and not cancelIt.cancel:
     now = datetime.now()
     current_time = now.strftime("%H:%M:%S")
