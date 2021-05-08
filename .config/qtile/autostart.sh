@@ -13,4 +13,3 @@ startServer &
 # xfce4-power-manager &
 guake &
 searxStart &
-betterlockscreen -w dim &

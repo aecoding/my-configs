@@ -167,6 +167,10 @@ keys = [
       'M-v',
       lazy.spawn(terminal + ' -e nvim /home/aedigo/.vimwiki/index.md')
     ),
+    EzKey(
+      'M-S-t',
+      lazy.spawn(terminal + ' -e gotop')
+    ),
 ]
 
 mouse = [

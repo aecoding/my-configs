@@ -1,5 +1,6 @@
 from libqtile import widget
 from colors import colors
+import subprocess
 
 colors = colors()
 
@@ -9,15 +10,8 @@ widget_defaults = dict(
 
 extension_defaults = widget_defaults.copy()
 
-def open_calendar(qtile):  # spawn calendar widget
-    qtile.cmd_spawn('gsimplecal next_month')
-
-def close_calendar(qtile):  # kill calendar widget
-    qtile.cmd_spawn('killall -q gsimplecal')
-
-# add widget with callbacks somewhere
-
-# widget.Clock(format='%Y-%m-%d %a %H:%M', mouse_callbacks={'Button1': open_calendar, 'Button2': close_calendar})
+def open_calendar():
+  subprocess.Popen(['calendarPy'])
 
 def widgets():
   widgetLists = [
@@ -64,8 +58,8 @@ def widgets():
     ),
     widget.Clock(
       background=colors[0],
-      format='%d/%m %a %H:%M',
-      mouse_callbacks={'Button1': open_calendar, 'Button2': close_calendar}
+      format='%H:%M',
+      mouse_callbacks={'Button1': open_calendar}
     ),
   ]
   return widgetLists;
