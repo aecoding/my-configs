@@ -67,8 +67,8 @@ if sys.argv[1] == 'cancel':
         exit()
 else:
     create_user_config(['active', True])
-    play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
     sendmessage('Pomodoro Started!')
+    play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
 
 pomodoro_counter = None
 free_time = None
