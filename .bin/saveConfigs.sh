@@ -24,7 +24,7 @@ case $1 in
     save
     ;;
   picom)
-    copy ~/.config/nvim ~/.my-configs/.config
+    copy ~/.config/picom ~/.my-configs/.config
     save
     ;;
   st)

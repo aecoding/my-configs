@@ -1,127 +1,98 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
-
-from importlib import reload
-from datetime import datetime
 from subprocess import call
-import time, cancelIt, subprocess, sys, os
+import time, subprocess, sys, os, json 
 
-wantToCancel = None
-isRunningPath = '/home/aedigo/.local/share/pomodoro/isrunning'
-
-if sys.argv[1] == 'cancel':
-    wantToCancel = True
-else:
-    wantToCancel = False
-
-def sendmessage(message):
-    subprocess.Popen(['notify-send.sh', message])
-    return
+homedir = os.environ['HOME']
+configPath = homedir + '/.config/pomopy.json'
 
 def play_sound(path, time):
     call(['aplay', '-d', str(time), path])
     return
 
-def canceling(state):
-    f = open('/home/aedigo/.bin/python/cancelIt.py', 'w')
-    f.write('cancel=' + str(state))
-    f.close()
+def sendmessage(message):
+    subprocess.Popen(['notify-send.sh', message])
+    return
 
-if os.path.isfile(isRunningPath):
-    if wantToCancel:
-        os.remove('/home/aedigo/.local/share/pomodoro/isrunning')
-        canceling(True)
+def user_config():
+    with open(configPath) as json_data_file:
+        data = json.load(json_data_file)
+        return data
+
+def save_user_settings(*args):
+    with open(configPath, 'w') as tosave:
+        json.dump(args[0], tosave, indent=4)
+
+def default_user_config():
+    config = {}
+    config['active'] = False
+    config['canceling'] = False
+    config['pomodoro'] = 25
+    config['leisure'] = True
+    config['leisure_time'] = 5
+    return config
+
+def create_user_config(*args):
+    config = {}
+    for x, y in user_config().items():
+        config[x] = y
+
+    if len(args):
+        for x in args:
+            config[x[0]] = x[1]
+    else:
+        print('Need two arguments.')
+        exit()
+    os.remove(configPath)
+    save_user_settings(config)
+    return config
+
+try:
+    with open(configPath) as f:
+        data = user_config()
+        if sys.argv[1] != 'cancel':
+            if data['active']:
+                sendmessage('Is running!')
+                exit()
+except FileNotFoundError:
+    with open(configPath, 'w') as outfile:
+        json.dump(default_user_config(), outfile, indent=4)
+
+if sys.argv[1] == 'cancel':
+    if user_config()['active']:
+        create_user_config(['canceling', True])
         exit()
     else:
-        sendmessage('Is running!')
+        sendmessage('Not active!')
         exit()
-
 else:
-    if wantToCancel:
-        sendmessage('Not running!')
-        canceling(False)
-        exit()
-    f = open(isRunningPath, 'w')
-    f.close()
-    sendmessage('Pomodoro started')
-            
-current_time = None
+    create_user_config(['active', True])
+    play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
+    sendmessage('Pomodoro Started!')
 
-def get_hour(*newMinute):
-    hour = datetime.now().hour
-    minute = datetime.now().minute
-    second = datetime.now().second
-    if len(str(hour)) == 1:
-     hour = isMissingZero(hour)
-    elif len(str(minute)) == 1:
-     minute = isMissingZero(minute)
-    elif len(str(second)) == 1:
-     second = isMissingZero(second)
-    if newMinute:
-        toFormat = add_time(hour, minute, newMinute, second)
-        return format_time(toFormat[0], toFormat[1], toFormat[2])
-        
-    if not newMinute:
-     return format_time(hour, minute, second)
+pomodoro_counter = None
+free_time = None
 
-def isMissingZero(time):
-    newTime = '0' + str(time)
-    return newTime
+with open(configPath) as json_data_file:
+    data = json.load(json_data_file)
+    pomodoro_counter=data['pomodoro'] * 60
+    free_time=data['leisure_time'] * 60
 
-def format_time(hour, minute, second):
-    formated_time = str(hour) + ':' + str(minute) + ':' + str(second)
-    return formated_time
+while pomodoro_counter != 0:
+    if user_config()['canceling']:
+        sendmessage('Pomodoro has been canceled!')
+        play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
+        create_user_config(['canceling', False], ['active', False])
+        break;
 
-def add_time(hour, minute, newMinute, second):
-    newSecond = second
-    bothMinutes = int(minute) + int(newMinute[0])
-    newHour = hour
-    if bothMinutes >= 60:
-        newHour = int(newHour) + 1
-        alteratedMinute = bothMinutes - 60
-        if len(str(newHour)) == 1:
-            newHour = isMissingZero(newHour)
-        if len(str(alteratedMinute)) == 1:
-            alteratedMinute = isMissingZero(alteratedMinute)
-            print(alteratedMinute)
-        if len(str(newSecond)) == 1:
-            newSecond = isMissingZero(newSecond)
-        return [newHour, alteratedMinute, newSecond]
-
-    if len(str(newSecond)) == 1:
-        newSecond = isMissingZero(newSecond)
-        return [newHour, bothMinutes, newSecond]
-
-    return [newHour, bothMinutes, newSecond]
-
-def notUnder60(newMinute):
-    if minute >= 60:
-        alteratedMinute = newMinute - 60
-        return alteratedMinute
-    
-pomodoro = get_hour(25)
-playingAround = get_hour(5)
-
-play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
-
-print(cancelIt.cancel, current_time != pomodoro)
-while current_time != pomodoro and not cancelIt.cancel:
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-
-    if playingAround == current_time:
-        sendmessage('JUST DO IT!!!')
+    pomodoro_counter = pomodoro_counter -1
+    if pomodoro_counter == free_time:
         play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
 
-    print(current_time, pomodoro, playingAround)
+        sendmessage('Focus Time!')
     time.sleep(1)
-    reload(cancelIt)
 else:
-    if cancelIt.cancel:
-        sendmessage('Pomodoro has been canceled!')
-    else:
-        sendmessage('Done! Good Work!')
+    sendmessage('Done! Good Work!')
     play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-end.wav', 3)
-    os.remove('/home/aedigo/.local/share/pomodoro/isrunning')
-    canceling(False)
+    subprocess.Popen(['lockIt'])
 
