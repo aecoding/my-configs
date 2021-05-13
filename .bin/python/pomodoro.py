@@ -30,6 +30,7 @@ def default_user_config():
     config['pomodoro'] = 25
     config['leisure'] = True
     config['leisure_time'] = 5
+    config['revision_time'] = 10
     return config
 
 def create_user_config(*args):
@@ -72,11 +73,14 @@ else:
 
 pomodoro_counter = None
 free_time = None
+content_revision = None
 
 with open(configPath) as json_data_file:
     data = json.load(json_data_file)
     pomodoro_counter=data['pomodoro'] * 60
     free_time=pomodoro_counter - (data['leisure_time'] * 60)
+    if sys.argv[1] == 'revision':
+        content_revision= pomodoro_counter - (data['revision_time'] * 60)
 
 while pomodoro_counter != 0:
     if user_config()['canceling']:
@@ -85,12 +89,15 @@ while pomodoro_counter != 0:
         create_user_config(['canceling', False], ['active', False])
         break;
 
-    print(free_time, pomodoro_counter)
     pomodoro_counter = pomodoro_counter -1
     if pomodoro_counter == free_time:
         play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
 
         sendmessage('Focus Time!')
+
+    if content_revision:
+        if content_revision == pomodoro_counter:
+            sendmessage('Revision Time!')
     time.sleep(1)
 else:
     sendmessage('Done! Good Work!')
