@@ -4,7 +4,7 @@
 function notifaction() {
 # This will give me the status of alsa volume
   volumePercentage=$(amixer sget Master | grep 'Right:' | awk -F'[][]' '{ print $2 }')
-  notify-send.sh "$volumePercentage" 
+  notify-send.py -a volume -t 1000 --replaces-process volume "$volumePercentage" 
 }
 
 # Deal with the volume

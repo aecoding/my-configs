@@ -11,7 +11,7 @@ def play_sound(path, time):
     return
 
 def sendmessage(message):
-    subprocess.Popen(['notify-send.sh', message])
+    subprocess.Popen(['notify-send.py', '--replaces-id', '1', '--replaces-process', '1', '-u', 'critical', message])
     return
 
 def user_config():
@@ -76,7 +76,7 @@ free_time = None
 with open(configPath) as json_data_file:
     data = json.load(json_data_file)
     pomodoro_counter=data['pomodoro'] * 60
-    free_time=data['leisure_time'] * 60
+    free_time=pomodoro_counter - (data['leisure_time'] * 60)
 
 while pomodoro_counter != 0:
     if user_config()['canceling']:
@@ -85,6 +85,7 @@ while pomodoro_counter != 0:
         create_user_config(['canceling', False], ['active', False])
         break;
 
+    print(free_time, pomodoro_counter)
     pomodoro_counter = pomodoro_counter -1
     if pomodoro_counter == free_time:
         play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
@@ -94,5 +95,6 @@ while pomodoro_counter != 0:
 else:
     sendmessage('Done! Good Work!')
     play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-end.wav', 3)
+    create_user_config(['active', False])
     subprocess.Popen(['lockIt'])
 
