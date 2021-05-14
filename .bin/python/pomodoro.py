@@ -65,11 +65,12 @@ if sys.argv[1] == 'cancel':
         exit()
     else:
         sendmessage('Not active!')
+        play_sound('/home/aedigo/Documents/Musics/Pomodoro/cancel-while-inactive.wav', 1)
         exit()
 else:
     create_user_config(['active', True])
     sendmessage('Pomodoro Started!')
-    play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
+    play_sound('/home/aedigo/Documents/Musics/Pomodoro/start.wav', 1)
 
 pomodoro_counter = None
 free_time = None
@@ -91,9 +92,8 @@ while pomodoro_counter != 0:
 
     pomodoro_counter = pomodoro_counter -1
     if pomodoro_counter == free_time:
-        play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-running.wav', 1)
-
         sendmessage('Focus Time!')
+        play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-start.wav', 1)
 
     if content_revision:
         if content_revision == pomodoro_counter:
@@ -101,7 +101,7 @@ while pomodoro_counter != 0:
     time.sleep(1)
 else:
     sendmessage('Done! Good Work!')
-    play_sound('/home/aedigo/Documents/Musics/Pomodoro/pomo-end.wav', 3)
+    play_sound('/home/aedigo/Documents/Musics/Pomodoro/end.wav', 3)
     create_user_config(['active', False])
     subprocess.Popen(['lockIt'])
 
