@@ -3,7 +3,7 @@ from libqtile import bar, layout, widget, hook
 from libqtile.config import Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from keys import keys, mouse
+from keys import keys
 from groups import groups
 from widgets import widgets
 import os, subprocess, numpy
