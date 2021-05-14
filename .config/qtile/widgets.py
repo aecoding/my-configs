@@ -28,11 +28,11 @@ def widgets():
     widget.Spacer(
       background=colors[0],
     ),
-    widget.Notify(
-      background=colors[0],
-      default_timeout=5,
-      foreground=colors[1]
-    ),
+#     widget.Notify(
+      # background=colors[0],
+      # default_timeout=5,
+      # foreground=colors[1]
+    # ),
     widget.Sep(
       background=colors[0],
       foreground=colors[0],
