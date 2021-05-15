@@ -1,6 +1,8 @@
 export ZSH="/home/aedigo/.oh-my-zsh"
 export PATH=/home/aedigo/.local/bin:$PATH
 export MOZ_X11_EGL=1
+export VIMTO_COLOR_NORMAL_TEXT=#282828
+export VIMTO_COLOR_NORMAL_BACKGROUND=#f1fbc7
 
 # Editor
 export EDITOR="/usr/bin/nvim"
@@ -85,7 +87,8 @@ zinit wait lucid for \
  blockf \
     zsh-users/zsh-completions \
  atload"!_zsh_autosuggest_start" \
-    zsh-users/zsh-autosuggestions
+    zsh-users/zsh-autosuggestions \
+    laurenkt/zsh-vimto
 
 # Setting vim keybindgs on the terminal.
 bindkey -v
