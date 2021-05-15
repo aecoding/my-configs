@@ -53,6 +53,7 @@ case $1 in
     ;;
   zsh)
     copy ~/.zshrc ~/.my-configs/
+    copy ~/.oh-my-zsh/aliases.zsh ~/.my-configs/.oh-my-zsh/
     save
     ;;
   *)

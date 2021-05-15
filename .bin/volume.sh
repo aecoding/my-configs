@@ -1,11 +1,11 @@
 #!/bin/bash
 
 if [ "$1" == "inc" ]; then
-   amixer -q sset Master 5%+
+   amixer -q sset Master 2%+
 fi
 
 if [ "$1" == "dec" ]; then
-   amixer -q sset Master 5%-
+   amixer -q sset Master 2%-
 fi
 
 if [ "$1" == "mute" ]; then
