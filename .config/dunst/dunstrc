@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "1000x550-20+730"
+    geometry = "1000x550-40+700"
 
     # Turn on the progess bar
     progress_bar = false
@@ -71,13 +71,13 @@
     separator_height = 0
 
     # Padding between text and separator.
-    padding = 0
+    padding = 10
 
     # Horizontal padding.
-    horizontal_padding = 0
+    horizontal_padding = 10
 
     # Padding between text and icon.
-    text_icon_padding = 0
+    text_icon_padding = 4
 
     # Defines width in pixels of frame around the notification window.
     # Set to 0 to disable.
@@ -348,7 +348,7 @@
     frame_color = "#fbf1c7"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
-    #icon = /path/to/icon
+    icon = ''
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
