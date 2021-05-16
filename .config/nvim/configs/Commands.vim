@@ -2,7 +2,7 @@
 map <C-P> :FZF<CR>
 
 " This will make 'jj' act like Esc 
-imap jj <Esc>
+imap jk <Esc>
 
 " This will auto complete the signs
 inoremap " ""<left>
