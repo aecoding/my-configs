@@ -5,8 +5,8 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=16:antialias=true:autohint=true";
-static int borderpx = 2;
+static char *font = "FantasqueSansMono Nerd Font:pixelsize=16:antialias=true:autohint=true";
+static int borderpx = 14;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -208,9 +208,7 @@ static Shortcut shortcuts[] = {
 	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
 	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
 	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
-  { MODKEY,               XK_c,           normalMode,     {.i =  0} },
-	{ MODKEY,               XK_K,           kscrollup,      {.i = -1} },
-	{ MODKEY,               XK_J,           kscrolldown,    {.i = -1} },
+	{ MODKEY,               XK_c,           normalMode,     {.i =  0} },
 };
 
 /*

@@ -4,7 +4,7 @@
  #include "arg.h"
  #include "st.h"
  #include "win.h"
-+#include "normalMode.h"
++#include "hb.h"
  
  /* types used in config.h */
  typedef struct {
