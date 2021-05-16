@@ -88,13 +88,11 @@ zinit wait lucid for \
     zsh-users/zsh-completions \
  atload"!_zsh_autosuggest_start" \
     zsh-users/zsh-autosuggestions \
-    laurenkt/zsh-vimto
+    softmoth/zsh-vim-mode
 
 # Setting vim keybindgs on the terminal.
-bindkey -v
-bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins 'jk' vi-cmd-mode
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=980'
-set VIM_MODE_INITIAL_KEYMAP=vicmd
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
 fi
