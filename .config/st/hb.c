@@ -26,7 +26,7 @@ hbunloadfonts()
 		XftUnlockFace(hbfontcache[i].match);
 	}
 
-	if (hbfontcache !=NULL) {
+	if (hbfontcache != NULL) {
 		free(hbfontcache);
 		hbfontcache = NULL;
 	}

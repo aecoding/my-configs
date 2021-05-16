@@ -1,3 +1,23 @@
+From 65989bfc0ee4566318ae0a123ee3c40a686c20ad Mon Sep 17 00:00:00 2001
+From: Julius Huelsmann <juliusHuelsmann@gmail.com>
+Date: Sun, 25 Apr 2021 23:06:37 +0200
+Subject: [PATCH] meta-patch: repaint
+
+---
+ Makefile     |   2 +-
+ config.def.h |  16 +++
+ normalMode.c | 284 +++++++++++++++++++++++++++++++++++++++++
+ normalMode.h |   8 ++
+ st.c         | 349 +++++++++++++++++++++++++++------------------------
+ st.h         |   2 +
+ utils.h      |  23 ++++
+ win.h        |   1 +
+ x.c          |  51 ++++++--
+ 9 files changed, 558 insertions(+), 178 deletions(-)
+ create mode 100644 normalMode.c
+ create mode 100644 normalMode.h
+ create mode 100644 utils.h
+
 diff --git a/Makefile b/Makefile
 index 470ac86..6688a58 100644
 --- a/Makefile
@@ -12,10 +32,10 @@ index 470ac86..6688a58 100644
  
  $(OBJ): config.h config.mk
 diff --git a/config.def.h b/config.def.h
-index 6f05dce..16cb5e1 100644
+index 0895a1f..b33cef9 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -131,6 +131,21 @@ unsigned int defaultfg = 7;
+@@ -122,6 +122,21 @@ unsigned int defaultfg = 7;
  unsigned int defaultbg = 0;
  static unsigned int defaultcs = 256;
  static unsigned int defaultrcs = 257;
@@ -37,7 +57,7 @@ index 6f05dce..16cb5e1 100644
  
  /*
   * Default shape of cursor
-@@ -199,6 +214,7 @@ static Shortcut shortcuts[] = {
+@@ -188,6 +203,7 @@ static Shortcut shortcuts[] = {
  	{ TERMMOD,              XK_Y,           selpaste,       {.i =  0} },
  	{ ShiftMask,            XK_Insert,      selpaste,       {.i =  0} },
  	{ TERMMOD,              XK_Num_Lock,    numlock,        {.i =  0} },
@@ -350,7 +370,7 @@ index 0000000..eb77484
 +ExitState kPressHist(char const *txt, size_t len, int ctrl, KeySym const *kSym);
 +ExitState pressKeys(char const* s, size_t e);
 diff --git a/st.c b/st.c
-index 76b7e0d..363f09c 100644
+index 0ce6ac2..4e9005f 100644
 --- a/st.c
 +++ b/st.c
 @@ -1,4 +1,5 @@
@@ -368,7 +388,7 @@ index 76b7e0d..363f09c 100644
  
  enum term_mode {
  	MODE_WRAP        = 1 << 0,
-@@ -95,6 +98,7 @@ typedef struct {
+@@ -97,6 +100,7 @@ typedef struct {
  	int mode;
  	int type;
  	int snap;
@@ -376,7 +396,7 @@ index 76b7e0d..363f09c 100644
  	/*
  	 * Selection variables:
  	 * nb – normalized coordinates of the beginning of the selection
-@@ -178,7 +182,6 @@ static void tdeleteline(int);
+@@ -179,7 +183,6 @@ static void tdeleteline(int);
  static void tinsertblank(int);
  static void tinsertblankline(int);
  static int tlinelen(int);
@@ -384,7 +404,7 @@ index 76b7e0d..363f09c 100644
  static void tmoveato(int, int);
  static void tnewline(int);
  static void tputtab(int);
-@@ -205,7 +208,6 @@ static void drawregion(int, int, int, int);
+@@ -206,7 +209,6 @@ static void drawregion(int, int, int, int);
  
  static void selnormalize(void);
  static void selscroll(int, int);
@@ -392,7 +412,7 @@ index 76b7e0d..363f09c 100644
  
  static size_t utf8decode(const char *, Rune *, size_t);
  static Rune utf8decodebyte(char, size_t *);
-@@ -231,6 +233,14 @@ static uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
+@@ -232,6 +234,14 @@ static uchar utfmask[UTF_SIZ + 1] = {0xC0, 0x80, 0xE0, 0xF0, 0xF8};
  static Rune utfmin[UTF_SIZ + 1] = {       0,    0,  0x80,  0x800,  0x10000};
  static Rune utfmax[UTF_SIZ + 1] = {0x10FFFF, 0x7F, 0x7FF, 0xFFFF, 0x10FFFF};
  
@@ -407,7 +427,7 @@ index 76b7e0d..363f09c 100644
  ssize_t
  xwrite(int fd, const char *s, size_t len)
  {
-@@ -423,6 +433,118 @@ tlinelen(int y)
+@@ -424,6 +434,118 @@ tlinelen(int y)
  	return i;
  }
  
@@ -526,7 +546,7 @@ index 76b7e0d..363f09c 100644
  void
  selstart(int col, int row, int snap)
  {
-@@ -432,19 +554,14 @@ selstart(int col, int row, int snap)
+@@ -433,19 +555,14 @@ selstart(int col, int row, int snap)
  	sel.alt = IS_SET(MODE_ALTSCREEN);
  	sel.snap = snap;
  	sel.oe.x = sel.ob.x = col;
@@ -548,7 +568,7 @@ index 76b7e0d..363f09c 100644
  	if (sel.mode == SEL_IDLE)
  		return;
  	if (done && sel.mode == SEL_EMPTY) {
-@@ -452,51 +569,13 @@ selextend(int col, int row, int type, int done)
+@@ -453,51 +570,13 @@ selextend(int col, int row, int type, int done)
  		return;
  	}
  
@@ -601,7 +621,7 @@ index 76b7e0d..363f09c 100644
  int
  selected(int x, int y)
  {
-@@ -508,119 +587,47 @@ selected(int x, int y)
+@@ -509,119 +588,47 @@ selected(int x, int y)
  		return BETWEEN(y, sel.nb.y, sel.ne.y)
  		    && BETWEEN(x, sel.nb.x, sel.ne.x);
  
@@ -741,15 +761,15 @@ index 76b7e0d..363f09c 100644
  			ptr += utf8encode(gp->u, ptr);
  		}
  
-@@ -633,7 +640,7 @@ getsel(void)
+@@ -634,7 +641,7 @@ getsel(void)
  		 * st.
  		 * FIXME: Fix the computer world.
  		 */
--		if ((y < sel.ne.y || lastx >= linelen) &&
-+		if ((y < endy || lastx == term.col - 1) &&
- 		    (!(last->mode & ATTR_WRAP) || sel.type == SEL_RECTANGULAR))
+-		if ((y < sel.ne.y || lastx >= linelen) && !(last->mode & ATTR_WRAP))
++		if ((y < endy || lastx == term.col - 1) && !(last->mode & ATTR_WRAP))
  			*ptr++ = '\n';
  	}
+ 	*ptr = 0;
 @@ -648,7 +655,7 @@ selclear(void)
  		return;
  	sel.mode = SEL_IDLE;
@@ -759,7 +779,7 @@ index 76b7e0d..363f09c 100644
  }
  
  void
-@@ -1000,8 +1007,7 @@ tfulldirt(void)
+@@ -1001,8 +1008,7 @@ tfulldirt(void)
  void
  tcursor(int mode)
  {
@@ -769,7 +789,7 @@ index 76b7e0d..363f09c 100644
  
  	if (mode == CURSOR_SAVE) {
  		c[alt] = term.c;
-@@ -1061,6 +1067,7 @@ tswapscreen(void)
+@@ -1062,6 +1068,7 @@ tswapscreen(void)
  void
  tscrolldown(int orig, int n)
  {
@@ -777,7 +797,7 @@ index 76b7e0d..363f09c 100644
  	int i;
  	Line temp;
  
-@@ -1081,6 +1088,7 @@ tscrolldown(int orig, int n)
+@@ -1082,6 +1089,7 @@ tscrolldown(int orig, int n)
  void
  tscrollup(int orig, int n)
  {
@@ -785,7 +805,7 @@ index 76b7e0d..363f09c 100644
  	int i;
  	Line temp;
  
-@@ -1232,8 +1240,8 @@ tclearregion(int x1, int y1, int x2, int y2)
+@@ -1243,8 +1251,8 @@ tclearregion(int x1, int y1, int x2, int y2)
  	if (y1 > y2)
  		temp = y1, y1 = y2, y2 = temp;
  
@@ -796,16 +816,16 @@ index 76b7e0d..363f09c 100644
  	LIMIT(y1, 0, term.row-1);
  	LIMIT(y2, 0, term.row-1);
  
-@@ -2394,8 +2402,6 @@ check_control_code:
+@@ -2413,8 +2421,6 @@ check_control_code:
  		 */
  		return;
  	}
--	if (selected(term.c.x, term.c.y))
+-	if (sel.ob.x != -1 && BETWEEN(term.c.y, sel.ob.y, sel.oe.y))
 -		selclear();
  
  	gp = &term.line[term.c.y][term.c.x];
  	if (IS_SET(MODE_WRAP) && (term.c.state & CURSOR_WRAPNEXT)) {
-@@ -2465,8 +2471,10 @@ void
+@@ -2483,8 +2489,10 @@ void
  tresize(int col, int row)
  {
  	int i;
@@ -818,7 +838,7 @@ index 76b7e0d..363f09c 100644
  	int *bp;
  	TCursor c;
  
-@@ -2475,6 +2483,7 @@ tresize(int col, int row)
+@@ -2493,6 +2501,7 @@ tresize(int col, int row)
  		        "tresize: error resizing to %dx%d\n", col, row);
  		return;
  	}
@@ -826,7 +846,7 @@ index 76b7e0d..363f09c 100644
  
  	/*
  	 * slide screen to keep cursor where we expect it -
-@@ -2482,48 +2491,54 @@ tresize(int col, int row)
+@@ -2500,48 +2509,54 @@ tresize(int col, int row)
  	 * memmove because we're freeing the earlier lines
  	 */
  	for (i = 0; i <= term.c.y - row; i++) {
@@ -891,7 +911,7 @@ index 76b7e0d..363f09c 100644
  	/* reset scrolling region */
  	tsetscroll(0, row-1);
  	/* make use of the LIMIT in tmoveto */
-@@ -2552,15 +2567,17 @@ resettitle(void)
+@@ -2570,15 +2585,17 @@ resettitle(void)
  void
  drawregion(int x1, int y1, int x2, int y2)
  {
@@ -914,7 +934,7 @@ index 76b7e0d..363f09c 100644
  }
  
  void
-@@ -2579,7 +2596,9 @@ draw(void)
+@@ -2597,7 +2614,9 @@ draw(void)
  	if (term.line[term.c.y][cx].mode & ATTR_WDUMMY)
  		cx--;
  
@@ -925,7 +945,7 @@ index 76b7e0d..363f09c 100644
  			term.ocx, term.ocy, term.line[term.ocy][term.ocx]);
  	term.ocx = cx;
 diff --git a/st.h b/st.h
-index 3d351b6..ad2915f 100644
+index d978458..d7c2d07 100644
 --- a/st.h
 +++ b/st.h
 @@ -8,6 +8,7 @@
@@ -986,7 +1006,7 @@ index a6ef1b9..cea19f3 100644
  	                  |MODE_MOUSEMANY,
  };
 diff --git a/x.c b/x.c
-index 210f184..643e870 100644
+index e5f1737..f0024ab 100644
 --- a/x.c
 +++ b/x.c
 @@ -19,6 +19,7 @@ char *argv0;
@@ -1087,7 +1107,7 @@ index 210f184..643e870 100644
  
  		/* Skip dummy wide-character spacing. */
  		if (mode == ATTR_WDUMMY)
-@@ -1609,6 +1630,7 @@ xdrawline(Line line, int x1, int y1, int x2)
+@@ -1608,6 +1629,7 @@ xdrawline(Line line, int x1, int y1, int x2)
  	i = ox = 0;
  	for (x = x1; x < x2 && i < numspecs; x++) {
  		new = line[x];
@@ -1107,3 +1127,6 @@ index 210f184..643e870 100644
  	/* 1. shortcuts */
  	for (bp = shortcuts; bp < shortcuts + LEN(shortcuts); bp++) {
  		if (ksym == bp->keysym && match(bp->mod, e->state)) {
+-- 
+2.25.1
+
