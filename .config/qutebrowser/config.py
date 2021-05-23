@@ -970,7 +970,10 @@ c.content.notifications.enabled = False
 
 ## List of user stylesheet filenames to use.
 ## Type: List of File, or File
-c.content.user_stylesheets = ['~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css']
+c.content.user_stylesheets = [
+        '~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css',
+        '~/.config/qutebrowser/themes/css/gruvbox/gruvbox-reddit.com.css'
+        ]
 
 ## Enable WebGL.
 ## Type: Bool
@@ -1820,7 +1823,7 @@ c.tabs.show = 'switching'
 ## qutebrowser`.
 ## Type: Dict
 ## 'ddg': 'https://duckduckgo.com/?q={}',
-c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "wa": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}" }
+c.url.searchengines = {'DEFAULT': 'localhost/search?hl=en&q={}',  'go': 'https://www.google.com/search?hl=en&q={}', "wa": "https://wiki.archlinux.org/?search={}", 'wk': "https://www.wikipedia.org/w/index.php?title=Special:Search&search={}", 'mdn': "https://developer.mozilla.org/en-US/search?q={}", 'swk': 'https://simple.wikipedia.org/wiki/{}'}
 
 ## Page(s) to open at the start.
 ## Type: List of FuzzyUrl, or FuzzyUrl
@@ -2176,7 +2179,6 @@ config.bind('<Ctrl-i>', 'leave-mode', mode='prompt')
 # config.bind('y', 'prompt-accept yes', mode='yesno')
 config.bind(',m', 'spawn mpv --force-window=immediate --pause {url}')
 config.bind(',t', 'spawm --userscript taskadd')
-config.bind(',d','config-cycle content.user_stylesheets ~/.config/qutebrowser/themes/css/gruvbox/gruvbox-all-sites.css ""')
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova and Daniel Mulford
