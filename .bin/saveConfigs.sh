@@ -20,7 +20,8 @@ case $1 in
     save
     ;;
   nvim)
-    copy ~/.config/nvim ~/.my-configs/.config
+    copy ~/.config/nvim/configs ~/.my-configs/.config/nvim/configs
+    copy ~/.config/nvim/init.vim ~/.my-configs/.config/nvim/
     save
     ;;
   picom)

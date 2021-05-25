@@ -14,7 +14,10 @@ fi
 
 
 AMIXER=$(amixer sget Master)
-VOLUME=$(echo $AMIXER | grep 'Right:' | awk -F'[][]' '{ print $2 }' | tr -d "%")
+# This is another way, but, unfortunelly, did not work for me when using Pipewire 
+# VOLUME=$(echo $AMIXER | grep 'Right:' | awk -F'[][]' '{ print $1 }' | tr -d "%")
+VOLUME=$(pamixer --get-volume)
+echo $VOLUME
 MUTE=$(echo $AMIXER | grep -o '\[off\]' | tail -n 1)
 if [ "$VOLUME" -le 20 ]; then
     ICON=audio-volume-low
