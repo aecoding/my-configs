@@ -3,10 +3,15 @@ export PATH=/home/aedigo/.local/bin:$PATH
 export MOZ_X11_EGL=1
 export VIMTO_COLOR_NORMAL_TEXT=#282828
 export VIMTO_COLOR_NORMAL_BACKGROUND=#f1fbc7
+export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:pdfview'
+
+alias vifmrun="~/.bin/vifmrun ."
 
 # Editor
 export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
+
+alias pth='patch -p1 <'
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="theunraveler"

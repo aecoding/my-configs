@@ -124,3 +124,6 @@ RenameExt() {
 fName() {
   ls $1 | xclip -selection clipboard
 }
+
+bindkey '^ ' autosuggest-accept
+
