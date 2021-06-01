@@ -98,7 +98,7 @@ Markmap() {
 }
 
 openMap() {
-  $browser ~/Documents/Mindmaps/$1/$2.html 
+  $browser ~/Docuents/Mindmaps/$1/$2.html 
 }
 
 Mindir() {
@@ -126,4 +126,3 @@ fName() {
 }
 
 bindkey '^ ' autosuggest-accept
-
