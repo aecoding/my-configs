@@ -6,10 +6,9 @@ safeeyes &
 xmodmap ~/.Xmodmap &
 # nitrogen --restore &
 hsetroot -solid "#282828" &
-xcape -e "Control_L=Escape" &
+xcape -e "Control_L=Escape;Alt_L=Return" &
 picom --experimental-backend &
-pacmd set-card-profile 0 output:analog-stereo+input:analog-stereo &
 startServer &
-# xfce4-power-manager &
+xfce4-power-manager &
 guake &
 searxStart &

@@ -1,8 +1,7 @@
 from libqtile.lazy import lazy
 from libqtile.config import Group, Key
 from keys import keys
-mod = 'mod3'
-alt = 'mod4'
+from modkey import mod, alt 
 
 groups = [Group(i) for i in "asdfhjkl"]
 

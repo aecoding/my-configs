@@ -1,10 +1,9 @@
 from libqtile.config import Click, Drag, Key, KeyChord
 from libqtile.lazy import lazy
+from modkey import mod, alt
 
-mod = 'mod3'
-alt = 'mod4'
-terminal = "st"
-secondaryTerminal = "st"
+term = "st"
+alt_term = "st"
 
 def latest_group(qtile):
   qtile.current_screen.set_group(qtile.current_screen.previous_group)
@@ -31,8 +30,8 @@ keys = [
     Key([mod], 'b', lazy.function(latest_group)),
 
     # Terminal
-    Key([mod], 't', lazy.spawn(terminal)),
-    Key([alt], 't', lazy.spawn(secondaryTerminal)),
+    Key([mod], 't', lazy.spawn(term)),
+    Key([alt], 't', lazy.spawn(alt_term)),
 
     # Applications
     Key([mod], 'w', lazy.spawn('qutebrowser')),
@@ -53,10 +52,10 @@ keys = [
         ]),
 
     # Terminal Based Apps
-    Key([mod, 'shift'], 'r', lazy.spawn(terminal + " -e ttrv")),
-    Key([alt], 'n', lazy.spawn(terminal + " -e nnn")),
-    Key([mod], 'v', lazy.spawn(terminal + ' -e nvim /home/aedigo/.vimwiki/index.md')),
-    Key([mod, 'shift'], 't', lazy.spawn(terminal + ' -e gotop')),
+    Key([mod, 'shift'], 'r', lazy.spawn(term + " -e ttrv")),
+    Key([alt], 'n', lazy.spawn(term + " -e nnn -e")),
+    Key([mod], 'v', lazy.spawn(term + ' -e nvim /home/aedigo/.vimwiki/index.md')),
+    Key([mod, 'shift'], 't', lazy.spawn(term + ' -e gotop')),
 ]
 
 mouse = [

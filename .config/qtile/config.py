@@ -1,13 +1,11 @@
-from typing import List  # noqa: F401
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 from keys import keys
 from groups import groups
 from widgets import widgets
-import os, subprocess, numpy
 from colors import colors
+import os, subprocess, numpy
 
 @hook.subscribe.startup_once
 def autostart():
@@ -37,9 +35,6 @@ screens = [
   ),
 ]
 
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
