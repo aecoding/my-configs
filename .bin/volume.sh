@@ -1,17 +1,19 @@
 #!/bin/bash
 
 if [ "$1" == "inc" ]; then
-   amixer -q sset Master 2%+
+  pulsemixer --change-volume +5
+#  amixer -q sset Master 2%+
 fi
 
 if [ "$1" == "dec" ]; then
-   amixer -q sset Master 2%-
+  pulsemixer --change-volume -5
+#   amixer -q sset Master 2%-
 fi
 
 if [ "$1" == "mute" ]; then
-   amixer -q sset Master toggle
+  pulsemixer --toggle-mute
+#   amixer -q sset Master toggle
 fi
-
 
 AMIXER=$(amixer sget Master)
 # This is another way, but, unfortunelly, did not work for me when using Pipewire 
