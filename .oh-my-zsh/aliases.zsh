@@ -11,6 +11,8 @@ alias spra='sudo pacman -Rs'
 alias spu='sudo pacman -Syu; gopreload-batch-refresh.sh'
 alias carch='sudo pacman -Rs $(pacman -Qtdq)'
 alias search='pacman -Ss'
+alias orphans='pacman -Qtdq'
+alias removeOrphans='sudo pacman -Rns $(pacman -Qtdq)'
 
 # python
 alias pyi='sudo pip install'
@@ -19,6 +21,7 @@ alias pyr='sudo pip uninstall'
 # qtile
 alias qtest='pytest ~/.config/qtile/config.py -s'
 alias qc='$EDITOR ~/.config/qtile/config.py'
+alias qs='$EDITOR ~/.config/qtile/autostart.sh'
 
 # yarn
 alias ya='yarn add'
@@ -39,6 +42,7 @@ alias fds='firefox-developer-edition --search '
 # zsh
 alias sc='$EDITOR ~/.zshrc'
 alias sz='source ~/.zshrc'
+alias sca='$EDITOR ~/.oh-my-zsh/aliases.zsh'
 
 # cpupower
 alias boost="sudo cpupower frequency-set -g performance"
@@ -47,7 +51,8 @@ alias powersave="sudo cpupower frequency-set -g powersave"
 # terminal apps
 alias n='nnn'
 alias reddit='ttrv --enable-media'
-alias svim='sudo -e'
+alias sv='sudo -e'
+alias go='googler'
 alias v='nvim'
 alias vimwiki='nvim ~/.vimwki/index.wiki'
 

@@ -3,7 +3,9 @@ export PATH=/home/aedigo/.local/bin:$PATH
 export MOZ_X11_EGL=1
 export VIMTO_COLOR_NORMAL_TEXT=#282828
 export VIMTO_COLOR_NORMAL_BACKGROUND=#f1fbc7
-export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:pdfview'
+export NNN_PLUG='f:finder;o:preview-tabbed;p:imgview;d:diffs;t:nmount;v:pdfview'
+export NNN_FIFO=/tmp/nnn.fifo
+export RANGER_LOAD_DEFAULT_RC=FALSE
 
 alias vifmrun="~/.bin/vifmrun ."
 
@@ -68,6 +70,20 @@ source $ZSH/oh-my-zsh.sh
 # Setting vim keybindgs on the terminal.
 bindkey -M viins 'jk' vi-cmd-mode
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=980'
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
+
+# Here Qtile is kept as default
+session=${1:-'qtile start'}
+
+case $session in
+    dwl               ) exec dwl;;
+    sway              ) exec sway;;
+    steam             ) exec steam;;
+    # No known session, try to run it as command
+    *                 ) exec $1;;
+esac
+
+if [ -z "${DISPLAY}" ] && [ "$(tty)" = "/dev/tty1" ]; then
+  exec xinit session
 fi
+
+#xinit /usr/bin/xonotic-glx -- :1 vt$XDG_VTNR
